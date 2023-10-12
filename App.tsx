@@ -20,12 +20,17 @@ import {
 
 
 import { Chip, Button, Surface, Switch } from 'react-native-paper';
+import { Section } from 'react-native-paper/lib/typescript/components/Drawer/Drawer';
 
 const image = { uri: 'https://legacy.reactjs.org/logo-og.png' };
 
 const App = () => {
   const [isSwitchOn, setIsSwitchOn] = useState(false);
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
+
+  const [chipActivat, setChipActivat] = useState(false);
+  const donarChipActivat = () => setChipActivat(!chipActivat);
+
 
   return (
     <ScrollView style={estils.container}>
@@ -45,19 +50,19 @@ const App = () => {
           placeholder="Email"
         />
         <Text style={estils.text}>Button(amb text i icona)</Text>
-        <Button icon="alien" mode="contained" onPress={() => console.log('Pressed')} style={estils.button}>
+        <Button buttonColor="#9214FA" textColor="white" icon="alien" mode="contained" onPress={() => console.log('Pressed')} style={{ borderRadius: 10 }}>
           Alien
         </Button>
-        <Button icon="alien" mode="contained" onPress={() => console.log('Pressed')} style={estils.button}>
+        <Button buttonColor="#9214FA" textColor="black" icon="alien" mode="contained" onPress={() => console.log('Pressed')} style={{ borderRadius: 10 }}>
           ALIEN
         </Button>
-        <Button icon="alien" mode="contained" onPress={() => console.log('Pressed')} style={estils.button}>
+        <Button buttonColor="black" textColor="#9214FA" icon="alien" mode="contained" onPress={() => console.log('Pressed')} style={{ borderRadius: 0 }}>
           ALIEN
         </Button>
-        <Button icon="alien" mode="contained" onPress={() => console.log('Pressed')} style={estils.button} >
+        <Button buttonColor="black" textColor="#9214FA" icon="alien" mode="contained" onPress={() => console.log('Pressed')} style={{ borderRadius: 0 }}>
           ALIEN
         </Button>
-        <Text style={estils.text}>Switch Necessites un descans</Text>
+        <Text style={estils.text}>Switch Necessites un descans?</Text>
         <Switch
           color="red"
           onValueChange={onToggleSwitch}
@@ -65,17 +70,21 @@ const App = () => {
         />
         <Text style={estils.text}>Botó dins un d`component
           Surface?</Text>
-        <Surface style={estils.surface} elevation={4}>
-          <Button icon="alien" mode="contained" onPress={() => console.log('Pressed')} style={estils.button}>
+        <Surface style={estils.surface}>
+          <Button
+            icon="alien"
+            onPress={() => console.log('Pressed')}
+            style={estils.buttonSurface}
+            labelStyle={{ color: '#9214FA' }}>
             ALIEN
           </Button>
         </Surface>
         <Text style={estils.text}>Provant Chips</Text>
         <View style={{ flexDirection: 'row' }}>
-          <Chip icon="web" onPress={() => console.log('Pressed')} style={estils.chip1}>
+          <Chip icon="web" onPress={() => console.log('Pressed')} style={estils.web} >
             Internet
           </Chip>
-          <Chip icon="wifi" onPress={() => console.log('Pressed')} style={estils.chip2}>
+          <Chip icon="wifi" onPress={donarChipActivat} textStyle={{ color: chipActivat ? 'red' : 'gray' }} style={estils.wifi}>
             Wifi
           </Chip>
         </View>
@@ -92,14 +101,12 @@ const estils = StyleSheet.create({
     height: 270,
   },
   surface: {
-    padding: 8,
-    height: 80,
-    width: 450,
+    width: 400,
     alignItems: 'center',
     justifyContent: 'center',
   },
   sectionTitle: {
-    fontSize: 55,
+    fontSize: 53,
     color: 'white',
     marginBottom: 20,
     fontWeight: 'bold',
@@ -120,6 +127,9 @@ const estils = StyleSheet.create({
     marginBottom: 10,
     backgroundColor: 'black',
   },
+  buttonSurface: {
+    backgroundColor: 'white'
+  },
   text: {
     fontSize: 27,
     color: 'white',
@@ -133,25 +143,19 @@ const estils = StyleSheet.create({
     flex: 1,
     backgroundColor: 'black'
   },
-  chip1: {
+  web: {
     backgroundColor: '#F0F0F0',
     padding: 8,
     borderRadius: 16,
     margin: 4,
-    width: 120,
+    width: 100,
   },
-  chipText: {
-    color: 'gray',
-  },
-  chiptext2: {
-    color: 'gray',
-  },
-  chip2: {
+  wifi: {
     backgroundColor: 'white',
     padding: 8,
     borderRadius: 16,
     margin: 4,
-    width: 100,
+    width: 80,
   },
 });
 
