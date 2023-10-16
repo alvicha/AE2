@@ -20,7 +20,7 @@ import {
 
 
 import { Chip, Button, Surface, Switch } from 'react-native-paper';
-import { Section } from 'react-native-paper/lib/typescript/components/Drawer/Drawer';
+//import { Section } from 'react-native-paper/lib/typescript/components/Drawer/Drawer';
 
 const image = { uri: 'https://legacy.reactjs.org/logo-og.png' };
 
