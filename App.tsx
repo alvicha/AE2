@@ -13,7 +13,7 @@ import {
   View,
 } from 'react-native';
 
-import { Provider as PaperProvider, TextInput } from 'react-native-paper';
+import { Provider as PaperProvider, TextInput, Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 
@@ -25,11 +25,45 @@ const nom = (textAMostrar) => {
   );
 }
 
-const dades = (arr) => {
-  const estil = 'florida';
+function getPlaceholderTextColor(estil) {
+  return estil === "florida" ? "white" : "orange";
+}
 
+function getStyle(estil) {
+  return estil === 'florida' ? styles.florida : styles.upv;
+}
+
+
+const dades = (arr) => {
+  const estil = 'upv';
+  const isAdmin = true;
   return (
-    <View style={estil === 'florida' ? styles.florida : styles.upv}>
+    <View style={getStyle(estil)}>
+      {
+        arr.map((component, index) => {
+          return (
+            <TextInput
+              key={index}
+              label="Introdueix les teues dates"
+              placeholder={component}
+              placeholderTextColor={getPlaceholderTextColor(estil)}
+              mode='flat'
+            />
+          );
+        })
+      }
+      {isAdmin && <Button icon="format-list-bulleted" mode="contained" onPress={() => console.log('Pressed')}>
+        INFORMES
+      </Button>}
+    </View>
+  )
+};
+
+/*
+const dades = (arr) => {
+  const estil = 'upv';
+  return (
+    <View style={getStyle(estil)}>
       {
         arr.map((component, index) => {
           return (
@@ -37,6 +71,7 @@ const dades = (arr) => {
               key={index}
               label={component}
               placeholder={component}
+              placeholderTextColor={getPlaceholderTextColor(estil)}
               mode='flat'
             />
           );
@@ -45,7 +80,7 @@ const dades = (arr) => {
     </View>
   )
 };
-
+*/
 // El simbolo && (AND) se usa para cuando este true se ponga un mensaje sino si es false se hará otra función.
 const App = () => {
   let array = ['Email', 'Nom'];
