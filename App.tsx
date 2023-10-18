@@ -9,8 +9,8 @@ import React from 'react';
 import {
   StatusBar,
   StyleSheet,
-  Text,
   View,
+  Text
 } from 'react-native';
 
 import { Provider as PaperProvider, TextInput, Button } from 'react-native-paper';
@@ -37,6 +37,17 @@ function getStyle(estil) {
 const dades = (arr) => {
   const estil = 'upv';
   const isAdmin = true;
+
+  const moduls2Dam = [
+    { nom: 'DIN', professor: 'Manel', hores: 120 },
+    { nom: 'ADA', professor: 'Roberto', hores: 120 },
+    { nom: 'PMDM', professor: 'Paco', hores: 100 },
+    { nom: 'PSP', professor: 'Roberto', hores: 60 },
+    { nom: 'SGE', professor: 'Belén', hores: 100 },
+    { nom: 'Anglés', professor: 'Caterina', hores: 40 },
+    { nom: 'EIE', professor: 'Ana', hores: 60 },
+  ];
+
   return (
     <View style={getStyle(estil)}>
       {
@@ -52,9 +63,25 @@ const dades = (arr) => {
           );
         })
       }
-      {isAdmin && <Button icon="format-list-bulleted" mode="contained" onPress={() => console.log('Pressed')}>
+      {isAdmin && <Button buttonColor="#9214FA" textColor="white" icon="format-list-bulleted" mode="contained" onPress={() => console.log('Pressed')}>
         INFORMES
       </Button>}
+      </View>
+      <View>
+      {
+        moduls2Dam.map((modul, index) => {
+          return (
+            <Text
+              key={index}
+              selectionColor="#F48FB1"
+            > {index + 1}
+              {modul.professor}
+              {modul.nom}
+              {modul.hores}
+              </Text>
+          );
+        })
+      }
     </View>
   )
 };
