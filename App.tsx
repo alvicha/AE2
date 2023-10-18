@@ -10,6 +10,7 @@ import {
   StyleSheet,
   View,
   Text,
+  ScrollView,
 } from 'react-native';
 
 import { Provider as PaperProvider, TextInput, Button } from 'react-native-paper';
@@ -45,52 +46,60 @@ const dades = (arr) => {
     { nom: 'Anglés', professor: 'Caterina', hores: 40 },
     { nom: 'EIE', professor: 'Ana', hores: 60 },
   ];
-
   return (
-    <View style={getStyle(estil)}>
-      {
-        arr.map((component, index) => {
-          return (
-            <TextInput
-              key={index}
-              label="Introdueix les teues dates"
-              placeholder={component}
-              placeholderTextColor={getPlaceholderTextColor(estil)}
-              mode='flat'
-              left={<TextInput.Icon icon="eye" />}
-            />
-          );
-        })
-      }
-      {isAdmin && <Button buttonColor="#9214FA" textColor="white" icon="format-list-bulleted" mode="contained" onPress={() => console.log('Pressed')}>
-        INFORMES
-      </Button>}
-
-      <SafeAreaView>
+    <ScrollView>
+      <View style={getStyle(estil)}>
         {
-          moduls2Dam.map((modul, index) => {
+          arr.map((component, index) => {
             return (
-              <View key={index} style={{ width: 550, justifyContent: 'center', backgroundColor: index % 2 === 0 ? '#F48FB1' : '#F8BBD0' }}>
-                <Text>
-                  {index + 1}
-                </Text>
-                <Text>
-                  {modul.nom}
-                </Text>
-                <Text>
-                  {modul.professor}
-                </Text>
-                <Text>
-                  {modul.hores}
-                </Text>
-              </View>
+              <TextInput
+                key={index}
+                label="Introdueix les teues dades"
+                secureTextEntry
+                placeholder={component}
+                placeholderTextColor={getPlaceholderTextColor(estil)}
+                mode='flat'
+                left={<TextInput.Icon icon="eye" />}
+              />
             );
           })
         }
-      </SafeAreaView>
-    </View>
-  )
-};
+      </View>
+      {isAdmin &&
+        <Button
+          buttonColor="#9214FA"
+          textColor="white"
+          icon="format-list-bulleted"
+          mode="contained"
+          onPress={() => console.log('Pressed')}
+          style={{ borderRadius: 0 }}
+        >
+          INFORMES
+        </Button>
+      }
+      {
+        moduls2Dam.map((modul, index) => {
+          return (
+            <View key={index} style={{ width: 550, justifyContent: 'center', backgroundColor: index % 2 === 0 ? '#F48FB1' : '#F8BBD0' }}>
+              <Text>
+                {index + 1}
+              </Text>
+              <Text>
+                {modul.nom}
+              </Text>
+              <Text>
+                {modul.professor}
+              </Text>
+              <Text>
+                {modul.hores}
+              </Text>
+            </View>
+          );
+        })
+      }
+    </ScrollView>
+  );
+}
 
 /*
 const dades = (arr) => {
