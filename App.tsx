@@ -7,10 +7,9 @@
 
 import React from 'react';
 import {
-  StatusBar,
   StyleSheet,
   View,
-  Text
+  Text,
 } from 'react-native';
 
 import { Provider as PaperProvider, TextInput, Button } from 'react-native-paper';
@@ -20,7 +19,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const nom = (textAMostrar) => {
   return (
     <View>
-      <Text style={styles.sectionTitle}>Hola {textAMostrar}</Text>
+      <Text style={styles.sectionTitle}>{textAMostrar}</Text>
     </View>
   );
 }
@@ -32,7 +31,6 @@ function getPlaceholderTextColor(estil) {
 function getStyle(estil) {
   return estil === 'florida' ? styles.florida : styles.upv;
 }
-
 
 const dades = (arr) => {
   const estil = 'upv';
@@ -59,6 +57,7 @@ const dades = (arr) => {
               placeholder={component}
               placeholderTextColor={getPlaceholderTextColor(estil)}
               mode='flat'
+              left={<TextInput.Icon icon="eye" />}
             />
           );
         })
@@ -66,22 +65,29 @@ const dades = (arr) => {
       {isAdmin && <Button buttonColor="#9214FA" textColor="white" icon="format-list-bulleted" mode="contained" onPress={() => console.log('Pressed')}>
         INFORMES
       </Button>}
-      </View>
-      <View>
-      {
-        moduls2Dam.map((modul, index) => {
-          return (
-            <Text
-              key={index}
-              selectionColor="#F48FB1"
-            > {index + 1}
-              {modul.professor}
-              {modul.nom}
-              {modul.hores}
-              </Text>
-          );
-        })
-      }
+
+      <SafeAreaView>
+        {
+          moduls2Dam.map((modul, index) => {
+            return (
+              <View key={index} style={{ width: 550, justifyContent: 'center', backgroundColor: index % 2 === 0 ? '#F48FB1' : '#F8BBD0' }}>
+                <Text>
+                  {index + 1}
+                </Text>
+                <Text>
+                  {modul.nom}
+                </Text>
+                <Text>
+                  {modul.professor}
+                </Text>
+                <Text>
+                  {modul.hores}
+                </Text>
+              </View>
+            );
+          })
+        }
+      </SafeAreaView>
     </View>
   )
 };
@@ -144,9 +150,8 @@ return (
 */
 const styles = StyleSheet.create({
   sectionTitle: {
-    fontSize: 34,
+    fontSize: 15,
     fontWeight: 'bold',
-    textAlign: 'center',
   },
   textInput: {
     backgroundColor: '#F0F0F0',
