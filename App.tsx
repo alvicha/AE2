@@ -16,17 +16,20 @@ import {
 import { Provider as PaperProvider, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+
 const nom = (textAMostrar) => {
   return (
     <View>
-      <Text style={estils.sectionTitle}>Hola {textAMostrar}</Text>
+      <Text style={styles.sectionTitle}>Hola {textAMostrar}</Text>
     </View>
   );
 }
 
 const dades = (arr) => {
+  const estil = 'florida';
+
   return (
-    <View>
+    <View style={estil === 'florida' ? styles.florida : styles.upv}>
       {
         arr.map((component, index) => {
           return (
@@ -77,7 +80,7 @@ return (
   </PaperProvider>
 );
 */
-const estils = StyleSheet.create({
+const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 34,
     fontWeight: 'bold',
@@ -90,6 +93,23 @@ const estils = StyleSheet.create({
     height: 70,
     margin: 12,
     borderWidth: 1,
+  },
+  upv: {
+    backgroundColor: 'purple',
+    fontSize: 10,
+    fontWeight: '600',
+    padding: 4,
+    paddingLeft: 12,
+    textAlign: 'left',
+    color: 'grey',
+  },
+  florida: {
+    backgroundColor: 'red',
+    fontSize: 12,
+    fontWeight: '600',
+    padding: 4,
+    paddingRight: 12,
+    textAlign: 'right',
   },
 });
 
