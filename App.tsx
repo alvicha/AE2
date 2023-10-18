@@ -35,7 +35,7 @@ function getStyle(estil) {
 
 const dades = (arr) => {
   const estil = 'upv';
-  const isAdmin = true;
+  const isAdmin = false;
 
   const moduls2Dam = [
     { nom: 'DIN', professor: 'Manel', hores: 120 },
