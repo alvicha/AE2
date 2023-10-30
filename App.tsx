@@ -3,121 +3,180 @@
  * https://github.com/facebook/react-native
  *
  * @format
+ * @flow strict-local
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
-  StatusBar,
-  ScrollView,
   StyleSheet,
+  View,
   Text,
-  TextInput,
-  ImageBackground,
-  SafeAreaView,
-  Button,
-  Switch
 } from 'react-native';
 
-//import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Importa el componente Icon
-
-import { Chip } from 'react-native-paper';
-
-const image = { uri: 'https://legacy.reactjs.org/logo-og.png' };
+import { Button, TextInput } from 'react-native-paper';
 
 const App = () => {
-  const [isSwitchOn, setIsSwitchOn] = React.useState(false);
-  const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
+  const [height, setHeight] = useState(0);
+  const [weight, setWeight] = useState(0);
+  const [IMC, setIMC] = useState(0);
+  
+  const CalcularIMC = () => {
+    if (!isNaN(weight) && !isNaN(height)) {
+      const calculatedIMC = weight / Math.pow(height, 2);
+      setIMC(calculatedIMC);
+    } else {
+      setIMC(0);
+    }
+  }
 
   return (
-    <ScrollView style={estils.container}>
-      <ImageBackground
-        source={image}
-        style={estils.backgroundImage}
-      >
-        <Text style={estils.sectionTitle}>Welcome to React Native</Text>
-      </ImageBackground>
-      <SafeAreaView style={estils.safeAreaView}>
-        <Text style={estils.text}>TextInput (email)</Text>
-        <TextInput
-          editable
-          multiline
-          maxLength={40}
-          style={estils.textInput}
-          placeholder="Email"
-        />
-        <Text style={estils.text}>Button(amb text i icona)</Text>
-
-
-        <Text style={estils.text}>Switch Necessites un descans</Text>
-        <Switch
-          onValueChange={onToggleSwitch}
-          value={isSwitchOn}
-        />
-        <Text style={estils.text}>Botó dins un d`component
-          Surface?</Text>
-        <Button title="Press me" />
-        <Text style={estils.text}>Provant Chips</Text>
-        <Chip icon="internet" onPress={() => console.log('Pressed')} style={estils.chip1} textStyle={estils.chipText}>Internet</Chip>
-        <Chip icon="Wifi" onPress={() => console.log('Pressed')} style={estils.chip2} textStyle={estils.chiptext2}>Wifi</Chip>
-      </SafeAreaView>
-    </ScrollView>
+    <View style={styles.contenidor}>
+      <View style={styles.seccio1}>
+        <Text style={styles.sectionTitle}>CALCULADORA IMC</Text>
+      </View>
+      <View style={styles.seccio2}>
+        <View style={styles.peso}>
+          <View style={styles.seccioPeso}>
+            <Text style={styles.titlePeso}>Peso:</Text>
+          </View>
+          <View style={styles.textInputPeso}>
+            <TextInput
+              editable
+              multiline
+              maxLength={40}
+              style={styles.resultat}
+              placeholder="Peso"
+            />
+          </View>
+        </View>
+        <View style={styles.seccioAltura}>
+          <View style={styles.altura}>
+            <Text style={styles.titleAltura}>Altura:</Text>
+          </View>
+          <View style={styles.textInputAltura}>
+            <TextInput
+              editable
+              multiline
+              maxLength={40}
+              onChangeText={alt => setHeight(parseInt(alt))}
+              style={styles.resultat}
+              placeholder="Altura"
+            />
+          </View>
+        </View>
+        <View style={styles.seccioBoto}>
+          <Button mode="contained" onPress={() => CalcularIMC} style={styles.button}>
+            PULSAME!
+          </Button>
+        </View>
+      </View>
+      <View style={styles.seccio3}>
+        <Text>RESULTAT</Text>
+      </View>
+    </View>
   );
 };
 
-const estils = StyleSheet.create({
-  container: {
-    flex: 1,
+const styles = StyleSheet.create({
+  contenidor: {
+    flex: 1, //Lo que hace es que entre los tres divs me hacen en uno solo y que me queden cuadrados con exactitud
+    flexDirection: 'column',
+    borderColor: 'purple',
+    borderWidth: 5,
   },
-  backgroundImage: {
-    height: 270,
+  resultat: {
+  },
+  seccioAltura: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    padding: 12,
+    alignContent: 'space-between',
+    width: 350,
+    marginTop: 15,
+  },
+  titleAltura: {
+    fontSize: 20,
+    fontWeight: '600',
+    padding: 12,
+    textAlign: 'left',
+  },
+  textInputPeso: {
+    justifyContent: 'flex-start',
+    marginLeft: 5,
+    width: 120,
+  },
+  seccioBoto: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 12,
+    alignContent: 'space-between',
+    width: 350,
+    marginTop: 34,
+  },
+  titlePeso: {
+    fontSize: 20,
+    fontWeight: '600',
+    padding: 12,
+    textAlign: 'left',
+  },
+  textInputAltura: {
+    justifyContent: 'flex-start',
+    marginLeft: 5,
+    width: 120,
+  },
+  seccioPeso: {
+    flexDirection: 'row',
+    width: 90,
+    alignContent: 'space-around',
+  },
+  peso: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    padding: 12,
+    alignContent: 'space-between',
+    width: 350,
+  },
+  altura: {
+  },
+  seccio1: {
+    flex: 0.15,
+    fontSize: 12,
+    fontWeight: '600',
+    margin: 4,
+    padding: 12,
+    textAlign: 'right',
+  },
+  seccio2: {
+    flex: 0.5,
+    fontSize: 12,
+    fontWeight: '600',
+    margin: 4,
+    padding: 12,
+    height: 50,
+    textAlign: 'center',
+  },
+  seccio3: {
+    flex: 0.15,
+    fontSize: 12,
+    fontWeight: '600',
+    margin: 4,
+    padding: 12,
+    textAlign: 'left',
   },
   sectionTitle: {
-    fontSize: 55,
-    color: 'white',
-    marginBottom: 20,
-    fontWeight: 'bold',
+    fontSize: 35,
+    color: 'blue',
+    fontWeight: '600',
+    padding: 12,
     textAlign: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 50
   },
-  textInput: {
-    backgroundColor: '#F0F0F0',
-    padding: 10,
-    width: 390,
-    height: 70,
-    margin: 12,
-    borderWidth: 1,
-  },
-  text: {
-    fontSize: 27,
+  button: {
+    borderRadius: 0,
     color: 'white',
-    marginTop: 40,
-  },
-  safeAreaView: {
-    flex: 1,
-    backgroundColor: 'black'
-  },
-  chip1: {
-    backgroundColor: '#F0F0F0',
-    padding: 8,
-    borderRadius: 16,
-    margin: 4,
-    width: 140,
-  },
-  chipText: {
-    color: 'gray',
-  },
-  chiptext2: {
-    color: 'red',
-  },
-  chip2: {
-    backgroundColor: 'white',
-    padding: 8,
-    borderRadius: 16,
-    margin: 4,
-    width: 140,
-  },
+    width: 300,
+    height: 40,
+  }
 });
 
 export default App;
