@@ -11,21 +11,21 @@ import {
   StyleSheet,
   View,
   Text,
+  TextInput,
 } from 'react-native';
 
-import { Button, TextInput } from 'react-native-paper';
+import CalculadoraIMG from './components/CalculadoraIMG';
+import { Button } from 'react-native-paper';
 
 const App = () => {
-  const [height, setHeight] = useState(0);
-  const [weight, setWeight] = useState(0);
-  const [IMC, setIMC] = useState(0);
-  
-  const CalcularIMC = () => {
-    if (!isNaN(weight) && !isNaN(height)) {
-      const calculatedIMC = weight / Math.pow(height, 2);
-      setIMC(calculatedIMC);
-    } else {
-      setIMC(0);
+  const [height, setHeight] = useState('');
+  const [weight, setWeight] = useState('');
+  const [resultatIMC, setResultatIMC] = useState(0);
+
+  const calculaIMC = () => {
+    if (weight !== "" && height !== "") {
+      let calculatedIMC = parseFloat(weight) / Math.pow(parseFloat(height), 2);
+      setResultatIMC(calculatedIMC);
     }
   }
 
@@ -41,10 +41,9 @@ const App = () => {
           </View>
           <View style={styles.textInputPeso}>
             <TextInput
-              editable
-              multiline
-              maxLength={40}
               style={styles.resultat}
+              onChangeText={setWeight}
+              value={weight}
               placeholder="Peso"
             />
           </View>
@@ -55,23 +54,25 @@ const App = () => {
           </View>
           <View style={styles.textInputAltura}>
             <TextInput
-              editable
-              multiline
-              maxLength={40}
-              onChangeText={alt => setHeight(parseInt(alt))}
+              onChangeText={setHeight}
               style={styles.resultat}
+              value={height}
               placeholder="Altura"
             />
           </View>
         </View>
         <View style={styles.seccioBoto}>
-          <Button mode="contained" onPress={() => CalcularIMC} style={styles.button}>
-            PULSAME!
+          <Button mode="contained" onPress={calculaIMC} style={styles.button}>
+            CALCULAR!
           </Button>
         </View>
       </View>
       <View style={styles.seccio3}>
-        <Text>RESULTAT</Text>
+        <View style={styles.resultatIMC}>
+          <Text style={styles.IMC
+          }>{resultatIMC}</Text>
+          <CalculadoraIMG valorIMC={resultatIMC} />
+        </View>
       </View>
     </View>
   );
@@ -88,7 +89,8 @@ const styles = StyleSheet.create({
   },
   seccioAltura: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 12,
     alignContent: 'space-between',
     width: 350,
@@ -132,7 +134,7 @@ const styles = StyleSheet.create({
   },
   peso: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     padding: 12,
     alignContent: 'space-between',
     width: 350,
@@ -176,6 +178,15 @@ const styles = StyleSheet.create({
     color: 'white',
     width: 300,
     height: 40,
+  },
+  resultatIMC: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  IMC: {
+    textAlign: 'center',
+    fontSize: 25,
+    fontWeight: 'bold',
   }
 });
 
