@@ -14,38 +14,32 @@ const CalculadoraIMG = (props) => {
     const [height, setHeight] = useState('');
     const [weight, setWeight] = useState('');
     const [resultatIMC, setResultatIMC] = useState(0);
-    const [color, setColor] = useState('');
-    const [missatgeResultat, setMissatgeResultat] = useState('');
+    const [missatgeResultat, setMissatgeResultat] = useState({});
 
     const calculaIMC = () => {
-        if (weight !== "" && height !== "") {
+        if (Number(weight) && Number(height)) {
             let calculatedIMC = parseFloat(weight) / Math.pow(parseFloat(height), 2);
             setResultatIMC(calculatedIMC);
             if (calculatedIMC < 18.5) {
-                setMissatgeResultat('Peso insuficiente');
-                setColor('green');
+                setMissatgeResultat({ msg: 'Peso insuficiente', color: 'green' });
             } else if (calculatedIMC <= 24.9) {
-                setMissatgeResultat('Normopeso');
-                setColor('green');
-            } else if (calculatedIMC >= 25 && calculatedIMC <= 26.9) {
-                setMissatgeResultat('Sobrepeso grado I');
-                setColor('orange');
-            } else if (calculatedIMC >= 27 && calculatedIMC <= 29.9) {
-                setMissatgeResultat('Sobrepeso grado II (preobesidad)');
-                setColor('orange');
-            } else if (calculatedIMC >= 30 && calculatedIMC <= 34.9) {
-                setMissatgeResultat('Obesidad de tipo I');
-                setColor('orange');
-            } else if (calculatedIMC >= 35 && calculatedIMC <= 39.9) {
-                setMissatgeResultat('Obesidad de tipo II');
-                setColor('orange');
+                setMissatgeResultat({ msg: 'Normopeso', color: 'green' });
+            } else if (calculatedIMC <= 26.9) {
+                setMissatgeResultat({ msg: 'Sobrepeso grado I', color: 'orange' });
+            } else if (calculatedIMC <= 29.9) {
+                setMissatgeResultat({ msg: 'Sobrepeso grado II', color: 'orange' });
+            } else if (calculatedIMC <= 34.9) {
+                setMissatgeResultat({ msg: 'Obesidad de tipo I', color: 'orange' });
+            } else if (calculatedIMC <= 39.9) {
+                setMissatgeResultat({ msg: 'Sobrepeso grado I', color: 'orange' });
             } else if (calculatedIMC >= 40 && calculatedIMC <= 49.9) {
-                setMissatgeResultat('Obesidad de tipo III (mórbida)');
-                setColor('red');
+                setMissatgeResultat({ msg: 'Obesidad de tipo III (mórbida)', color: 'red' });
             } else {
-                setMissatgeResultat('Obesidad de tipo IV (extrema)');
-                setColor('red');
+                setMissatgeResultat({ msg: 'Obesidad de tipo IV (extrema)', color: 'red' });
             }
+        } else {
+            setResultatIMC('0');
+            setMissatgeResultat('');
         }
     }
     return (
@@ -90,8 +84,8 @@ const CalculadoraIMG = (props) => {
             </View>
             <View style={styles.seccio3}>
                 <View style={styles.resultatIMC}>
-                    <Text style={styles.IMC}>{resultatIMC}</Text>
-                    <Text style={{ fontSize: 25, color: color }}>{missatgeResultat}</Text>
+                    <Text style={styles.resultatIMC}>{resultatIMC}</Text>
+                    <Text style={{ color: missatgeResultat.color }}>{missatgeResultat.msg}</Text>
                 </View>
             </View>
         </View>
@@ -205,8 +199,10 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     IMC: {
+        textAlign: 'center',
         fontSize: 25,
-    }
+        fontWeight: 'bold',
+    },
 });
 
 export default CalculadoraIMG;
