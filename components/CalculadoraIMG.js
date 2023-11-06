@@ -84,8 +84,13 @@ const CalculadoraIMG = (props) => {
             </View>
             <View style={styles.seccio3}>
                 <View style={styles.resultatIMC}>
-                    <Text style={styles.resultatIMC}>{resultatIMC}</Text>
-                    <Text style={{ color: missatgeResultat.color }}>{missatgeResultat.msg}</Text>
+                    <Text style={styles.IMC}>{resultatIMC}</Text>
+                    <Text style={{
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        textAlign: 'center', color: missatgeResultat.color,
+                        fontSize: 25,
+                    }}>{missatgeResultat.msg}</Text>
                 </View>
             </View>
         </View>
@@ -194,11 +199,9 @@ const styles = StyleSheet.create({
         width: 300,
         height: 40,
     },
-    resultatIMC: {
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
     IMC: {
+        justifyContent: 'center',
+        alignItems: 'center',
         textAlign: 'center',
         fontSize: 25,
         fontWeight: 'bold',
