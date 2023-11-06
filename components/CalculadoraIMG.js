@@ -5,48 +5,49 @@
  * @format
  * @flow strict-local
  */
-
-import React, { useState } from 'react';
-import {
-    StyleSheet,
-    View,
-} from 'react-native';
+import React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
 
 const CalculadoraIMG = (props) => {
-    const missatgeDelPes = pesCalculat => {
-        if (pesCalculat < 18.5) {
-            return ('Peso insuficiente');
-        } else if (pesCalculat >= 18.5 && pesCalculat <= 24.9) {
-            return ('Normopeso');
-        } else if (pesCalculat >= 25 && pesCalculat <= 26.9) {
-            return ('Sobrepeso grado I');
-        } else if (pesCalculat >= 27 && pesCalculat <= 29.9) {
-            return ('Sobrepeso grado II (preobesidad)');
-        } else if (pesCalculat >= 30 && pesCalculat <= 34.9) {
-            return ('Obesidad de tipo I');
-        } else if (pesCalculat >= 35 && pesCalculat <= 39.9) {
-            return ('Obesidad de tipo IIals missatges ');
-        } else if (pesCalculat >= 40 && pesCalculat <= 49.9) {
-            return ('Obesidad de tipo III (mórbida)');
-        } else {
-            return ('Obesidad de tipo IV (extrema)');
-        }
+    const [color, setColor] = useState('');
+    let missatgeResultat = '';
+    if (props.valorIMC < 18.5) {
+        missatgeResultat = 'Peso insuficiente';
+        setColor('green');
+    } else if (props.valorIMC >= 18.5 && props.valorIMC <= 24.9) {
+        missatgeResultat = 'Normopeso';
+        setColor('green');
+    } else if (props.valorIMC >= 25 && props.valorIMC <= 26.9) {
+        missatgeResultat = 'Sobrepeso grado I';
+        setColor('orange');
+    } else if (props.valorIMC >= 27 && props.valorIMC <= 29.9) {
+        missatgeResultat = 'Sobrepeso grado II (preobesidad)';
+        setColor('orange');
+    } else if (props.valorIMC >= 30 && props.valorIMC <= 34.9) {
+        missatgeResultat = 'Obesidad de tipo I';
+        setColor('orange');
+    } else if (props.valorIMC >= 35 && props.valorIMC <= 39.9) {
+        missatgeResultat = 'Obesidad de tipo II';
+        setColor('orange');
+    } else if (props.valorIMC >= 40 && props.valorIMC <= 49.9) {
+        missatgeResultat = 'Obesidad de tipo III (mórbida)';
+        setColor('red');
+    } else {
+        missatgeResultat = 'Obesidad de tipo IV (extrema)';
+        setColor('red');
     }
+
     return (
         <View style={styles.missatge}>
-            <CalculadoraIMG valorIMC={valorIMC} />
+            <Text style={{ color: color }}>{missatgeResultat}</Text>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    IMC: {
-        textAlign: 'center',
-        fontSize: 25,
-        fontWeight: 'bold',
-    },
     missatge: {
-        fontSize: 25,
+        justifyContent: 'center',
+        alignSelf: 'center'
     }
 });
 

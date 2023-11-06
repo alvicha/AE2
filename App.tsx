@@ -71,7 +71,7 @@ const App = () => {
         <View style={styles.resultatIMC}>
           <Text style={styles.IMC
           }>{resultatIMC}</Text>
-          <CalculadoraIMG valorIMC={resultatIMC} />
+            <CalculadoraIMG valorIMC={resultatIMC} />
         </View>
       </View>
     </View>
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 25,
     fontWeight: 'bold',
-  }
+  },
 });
 
 export default App;
